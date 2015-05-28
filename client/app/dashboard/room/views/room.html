@@ -1,22 +1,26 @@
-<div class='container'>
+
     <div style="padding: 17px; padding-top: 0px;">
       <span ng-hide="error">
       </span>
       <br>
       <span ng-bind="error"></span>
     </div>
-
-    <div class="video-wrapper">
-      <video-player class="col-md-4" ng-repeat="peer in peers" vid-src="{{peer.stream}}"></video-player>
-    </div>
-
-    <div class="video-wrapper">
-      <div class="col-md-2">
-        <video ng-src="{{getLocalVideo()}}" autoplay muted></video>
+  
+    <div class="row">
+      <div class="col-md-9">
+        <div class="video-wrapper partner-video">
+          <video-player class="col-md-4" ng-repeat="peer in peers" vid-src="{{peer.stream}}"></video-player>
+        </div>
+      </div>
+      <div class="col-md-3 user-panel">
+        <div class="video-wrapper user-video">
+          <div class="col-md-2">
+            <video ng-src="{{getLocalVideo()}}" autoplay muted></video>
+          </div>
+        </div>
+        <button id="start" ng-click="startRecording()" ng-disabled="startDisabled">Start Recording</button>
+        <button id="stop" ng-click="stopRecording()" ng-disabled="stopDisabled">Stop Recording</button>
       </div>
     </div>
-</div>
-<div class="container">
-  <button id="start" ng-click="startRecording()" ng-disabled="startDisabled">Start Recording</button>
-  <button id="stop" ng-click="stopRecording()" ng-disabled="stopDisabled">Stop Recording</button>
-</div>
+
+
