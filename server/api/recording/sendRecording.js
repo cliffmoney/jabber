@@ -11,7 +11,7 @@ var mongoose = require('mongoose'),
     module.exports = function(userId, cb){
       var gfs = Grid(conn.db);
       var streams = [];
-      gfs.files.find({ metadata: {userId: "5568b68d6cd8d2cd4fde2e62"} }).toArray(function (err, files) {
+      gfs.files.find({ metadata: {userId: userId} }).toArray(function (err, files) {
           if (err) {
                throw (err);
           }

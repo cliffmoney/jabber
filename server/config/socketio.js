@@ -83,7 +83,7 @@ module.exports = function (socketio) {
       saveRecording({
         audio : audio.audio.dataURL,
         filename : fileName + '.wav',
-        userId: audio.user.user._id
+        userId: audio.user.user.email
       },
         function(filename){
           socket.emit('savedFile', fileName + '.wav');

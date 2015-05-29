@@ -20,7 +20,7 @@ angular.module('jabbrApp')
        })
     });
 
-    ss(socket).emit("getRecording", currentUser._id);
+    ss(socket).emit("getRecording", currentUser.email);
 
     // ==========
 
