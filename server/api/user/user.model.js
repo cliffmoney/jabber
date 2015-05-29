@@ -4,7 +4,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
 var authTypes = ['github', 'twitter', 'facebook', 'google'];
-var Message = require('../message/message.model')
+var Message = require('../message/message.model');
+
 
 var UserSchema = new Schema({
   name: String,
@@ -17,12 +18,22 @@ var UserSchema = new Schema({
   provider: String,
   salt: String,
   facebook: {},
-  nativeLanguage: String,
-  languageLearning: String,
+  nativeLanguages: [String],
+  recordings: [{type: Schema.ObjectId, ref: 'Recording'}],
+  partnerships: [{type: Schema.ObjectId, ref: 'Partnership'}],
+  messages: [{type: Schema.ObjectId, ref: 'Message'}],
+  languagesLearning: [{language: String, ability: Number}],
+  languagesSpeaking: [{language: String, ability: Number}],
   pic: String,
   intro: String,
+  help: String,
   country: String
 });
+
+// Custom indexes
+
+UserSchema.index({'languagesLearning.language': 1});
+UserSchema.index({'languagesSpeaking.language': 1});
 
 /**
  * Virtuals
@@ -44,7 +55,14 @@ UserSchema
   .get(function() {
     return {
       'name': this.name,
-      'role': this.role
+      'role': this.role,
+      'nativeLanguages': this.nativeLanguages,
+      'languagesLearning': this.languagesLearning,
+      'languagesSpeaking': this.languagesSpeaking,
+      'pic': this.pic,
+      'intro': this.intro,
+      'help': this.help,
+      'country': this.country
     };
   });
 

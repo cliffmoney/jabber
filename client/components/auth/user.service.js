@@ -26,9 +26,6 @@ angular.module('jabbrApp')
       },
       getProfile: {
         method: 'GET',
-        params: {
-          controller: 'profile'
-        }
       }
     });
   });

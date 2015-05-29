@@ -10,7 +10,7 @@ module.exports = function(app) {
 
   // Insert routes below
   app.use('/api/users/:id/messages', require('./api/message'));
-  app.use('/api/users/:id/partnerships', require('./api/partnership'));
+  app.use('/api/partnerships', require('./api/partnership'));
   // if something starts with api/recordings, use subrouter
   app.use('/api/recordings', require('./api/recording'));
   app.use('/api/users', require('./api/user'));

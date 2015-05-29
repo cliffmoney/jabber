@@ -8,11 +8,11 @@ angular.module('jabbrApp')
 
     // get all partnerships that have a room
     $scope.getRooms = function() {
-      $http.get('/api/users/' + $scope.currentUser._id + '/partnerships')
+      $http.get('/api/partnerships')
         .success(function(partnerships, status) {
           for(var i = 0; i < partnerships.length; i++) {
             if($scope.currentUser._id === partnerships[i].requester._id)
-              partnerships[i].partnerName = partnerships[i].recipient.name
+              partnerships[i].partnerName = partnerships[i].recipient.name;
             else
               partnerships[i].partnerName = partnerships[i].requester.name;
           }

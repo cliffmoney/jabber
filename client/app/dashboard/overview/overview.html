@@ -21,10 +21,12 @@
     Name: {{partner.name}}
   </div>
   <div class='col-md-3'>
-    Native Language: {{partner.nativeLanguage}}
+    Native Languages: 
+    <span ng-repeat='nativeLanguage in partner.nativeLanguages'> {{nativeLanguage}} </span>
   </div>
   <div class='col-md-3'>
-    Learning: {{partner.languageLearning}}
+    Learning: 
+    <span ng-repeat='language in partner.languagesLearning'> {{language.language}} </span>
   </div>
   <div class='col-md-3'>
     <button><a ng-click='viewProfile(partner)'>View Profile</a></button>

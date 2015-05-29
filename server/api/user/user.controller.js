@@ -135,7 +135,12 @@ exports.changeUserPreferences = function(req, res, next) {
   User.findById(userId, function(err, user) {
     if (err) return next(err);
     if (!user) return res.json(500);
-    User.find({ nativeLanguage: user.languageLearning }, 'name languageLearning nativeLanguage',
+    // map language names into an array that can be used with '$in'
+    var languageNames = [];
+    for(var i = 0; i < user.languagesLearning.length; i++) {
+      languageNames.push(user.languagesLearning[i].language);
+    }
+    User.find({ 'languagesSpeaking.language' : {'$in': languageNames } }, 'name languagesLearning nativeLanguages languagesSpeaking',
       function(err, partners) {
         if(err) return next(err);
         res.json({partners: partners});

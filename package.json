@@ -27,7 +27,9 @@
     "serve-favicon": "~2.0.1",
     "socket.io": "^1.0.6",
     "socket.io-stream": "^0.8.0",
-    "socketio-jwt": "^2.0.2"
+    "socketio-jwt": "^2.0.2",
+    "socketio-jwt": "^2.0.2",
+    "bson": "~0.3.2"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

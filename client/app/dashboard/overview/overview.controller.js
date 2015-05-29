@@ -7,6 +7,7 @@ angular.module('jabbrApp')
 
   
     User.getSuggestedPartners(function(res) {
+      console.log(res.partners);
       $scope.suggestedPartners = res.partners;
     });
 
@@ -23,7 +24,7 @@ angular.module('jabbrApp')
       });
     
     $scope.acceptRequest = function(request) {
-      $http.put('/api/users/' + $scope.currentUser._id + '/partnerships/' + request._partnership)
+      $http.put('/api/partnerships/' + request._partnership)
         .success(function(data, status) {
           $scope.isAccepted = true;
           $state.go($state.current, {}, {reload: true});

@@ -14,7 +14,6 @@ exports.index = function(req, res) {
     .populate('recipient requester')
     .exec(function(err, partnerships) {
       if(err) { return handleError(res, err); }
-      console.log(partnerships);
       return res.json(200, partnerships);
     });
 };
@@ -48,7 +47,6 @@ exports.create = function(req, res) {
         recipient: toId,
         messages: [message._id]
       }, function(err, partnership) {
-        console.log(partnership);
       if(err) { return handleError(res, err); }
       // now update the message to reference the partnership. this is awful code, will change later
       Message.findById(message._id, function(err, message) {
@@ -69,14 +67,18 @@ exports.update = function(req, res) {
   Partnership.findById(req.params.id, function (err, partnership) {
     if (err) { return handleError(res, err); }
     if(!partnership) { return res.send(404); }
-    console.log(partnership);
-    partnership.confirmed = true;
-    partnership.room_id = uuid.v4();
-    partnership.save(function (err) {
-      if (err) { return handleError(res, err); }
-      console.log(partnership);
-      return res.json(200, partnership);
-    });
+    if(partnership.confirmed === false) {
+      partnership.confirmed = true;
+      partnership.room_id = uuid.v4();
+      partnership.save(function (err) {
+        if (err) { return handleError(res, err); }
+        console.log('created room');
+        return res.json(200, partnership);
+      });
+    } else {
+      console.log('room not created again');
+      return res.json(404);
+    }
   });
 };
 
