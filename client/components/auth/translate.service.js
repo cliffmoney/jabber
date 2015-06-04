@@ -39,8 +39,8 @@ angular.module('jabbrApp')
     };
     //-----------is it okay to use the above? found it on stack overflow----------
     var translate = function(string) {
-      var baseUrl = 'https://www.googleapis.com/language/translate/v2?key='
-      var query = '&q='+string+'&target=zh-CN';
+      var baseUrl = 'https://www.googleapis.com/language/translate/v2?key=AIzaSyCnCsQto6YXS5YZH-tKay95podBNk9WHM8';
+      var query = '&q='+string+'&target=EN';
       var url = baseUrl + query;
       return $http({
         method: 'GET',

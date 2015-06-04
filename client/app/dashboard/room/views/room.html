@@ -30,6 +30,7 @@
     <form ng-submit='sendMsg()'>
       <input type="text" class="form-control input-lg" name="msg" placeholder="Send message" ng-model='msg'>
       <input type="submit" name="send" id="send" value="Send" class="btn btn-primary btn-lg">
+      <select ng-options="language.language for language in targetLanguages" ng-model="targetLanguage"></select>
       <div class="btn-group">
         <button id="start" class="btn btn-lg" ng-click="startRecording()" ng-disabled="startDisabled">Start Recording</button>
         <button id="stop" class="btn btn-lg" ng-click="stopRecording()" ng-disabled="stopDisabled">Stop Recording</button>

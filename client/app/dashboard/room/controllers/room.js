@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('jabbrApp')
-  .controller('RoomCtrl', function ($sce, VideoStream, $location, $stateParams, $scope, Room, $state, JabbrSocket, Auth, Session, Translate) {
+  .controller('RoomCtrl', function ($sce, VideoStream, $location, $stateParams, $scope, Room, $state, JabbrSocket, Auth, Session, Translate, $http) {
 
     if (!window.RTCPeerConnection || !navigator.getUserMedia) {
       $scope.error = 'WebRTC is not supported by your browser. You can try the app with Chrome and Firefox.';
@@ -121,22 +121,32 @@ angular.module('jabbrApp')
     });
   
   //-----chat stuff-----//
-  $scope.me = Auth.getCurrentUser();
+
+  $scope.targetLanguages = $scope.currentUser.languagesLearning;
   $scope.msg = "";
+  $scope.targetLanguage = $scope.targetLanguages[0];
+  var languageMap = {
+    'English': 'en',
+    'Chinese': 'zh-CN',
+    'Spanish': 'es',
+    'Arabic': 'ar' 
+  };
   $scope.sendMsg = function() {
-    if ($scope.msg !== "") {
-      Translate.translate($scope.msg).then(function(translated) {
-       var data = {
-         t: translated,
-         o: $scope.msg
-       }
-       Room.sendMsg(data, $stateParams.roomId);
-       $scope.msg = "";
+    if($scope.msg !== "") {
+      var languageCode = languageMap[$scope.targetLanguage.language];
+      $http.post('/api/translate', {
+        text: $scope.msg,
+        targetLanguage: languageCode
+      }).success(function(translation, status) {
+        var data = {
+          t: translation,
+          o: $scope.msg
+        };
+        Room.sendMsg(data, $stateParams.roomId);
+        $scope.msg = "";
       });
-
-
     }
-    
+
   };
   socket.on('updateChat', function(message) {
     $('#msgs').append('<li>Translated: ' + message.t + '</li>');
